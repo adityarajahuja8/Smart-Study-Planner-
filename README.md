@@ -1,1 +1,2 @@
-# Smart-Study-Planner-
+# Smart-Study-Planner
+.
