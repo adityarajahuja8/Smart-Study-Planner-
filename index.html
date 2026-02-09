@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Smart Study Planner</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: Arial, sans-serif; padding: 20px; max-width: 800px; margin: 0 auto; background: #f5f5f5; }
+    body.dark { background: #222; color: #eee; }
+    h1 { margin-bottom: 20px; font-size: 1.5rem; }
+    h2 { margin: 24px 0 12px; font-size: 1.2rem; border-bottom: 1px solid #ccc; padding-bottom: 6px; }
+    body.dark h2 { border-color: #555; }
+    .box { background: #fff; padding: 16px; margin-bottom: 16px; border-radius: 8px; }
+    body.dark .box { background: #333; }
+    input, select, button { padding: 8px 12px; margin: 4px; font-size: 14px; border: 1px solid #ccc; border-radius: 4px; }
+    body.dark input, body.dark select { background: #444; border-color: #555; color: #eee; }
+    button { cursor: pointer; background: #4a90d9; color: #fff; border: none; }
+    button:hover { background: #357abd; }
+    button.del { background: #c44; }
+    button.del:hover { background: #a33; }
+    ul { list-style: none; }
+    li { padding: 8px 0; border-bottom: 1px solid #eee; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; }
+    body.dark li { border-color: #444; }
+    .priority { font-size: 11px; padding: 2px 6px; border-radius: 4px; }
+    .priority.high { background: #fcc; color: #800; }
+    .priority.medium { background: #ffc; color: #860; }
+    .priority.low { background: #cfc; color: #060; }
+    body.dark .priority.high { background: #522; color: #f99; }
+    body.dark .priority.medium { background: #552; color: #fc9; }
+    body.dark .priority.low { background: #252; color: #9f9; }
+    .row { margin-bottom: 10px; }
+    .row input, .row select, .row button { margin-right: 8px; margin-bottom: 8px; }
+    .progress-bar { height: 20px; background: #ddd; border-radius: 4px; overflow: hidden; margin: 8px 0; }
+    body.dark .progress-bar { background: #444; }
+    .progress-fill { height: 100%; background: #4a90d9; transition: width 0.3s; }
+    .muted { color: #666; font-size: 13px; }
+    body.dark .muted { color: #999; }
+    .done { text-decoration: line-through; color: #666; }
+    body.dark .done { color: #888; }
+    .settings-row { margin: 12px 0; display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+    .chart-row { display: flex; gap: 24px; margin: 12px 0; align-items: flex-end; }
+    .chart-bar { width: 60px; background: #4a90d9; border-radius: 4px 4px 0 0; min-height: 4px; }
+    .chart-bar.pending { background: #d97706; }
+    .chart-lbl { font-size: 12px; color: #666; }
+    body.dark .chart-lbl { color: #999; }
+  </style>
+</head>
+<body>
+  <h1>Smart Study Planner</h1>
+
+  <!-- Subjects -->
+  <h2>Subjects</h2>
+  <div class="box">
+    <div class="row">
+      <input type="text" id="subjectName" placeholder="Subject name" size="20">
+      <select id="subjectPriority">
+        <option value="high">High</option>
+        <option value="medium" selected>Medium</option>
+        <option value="low">Low</option>
+      </select>
+      <button type="button" id="addSubject">Add</button>
+    </div>
+    <ul id="subjectsList"></ul>
+  </div>
+
+  <!-- Schedule -->
+  <h2>Schedule</h2>
+  <div class="box">
+    <div class="row">
+      <select id="blockSubject"></select>
+      <input type="time" id="blockStart">
+      <input type="time" id="blockEnd">
+      <select id="blockDay">
+        <option value="0">Sun</option><option value="1">Mon</option><option value="2">Tue</option>
+        <option value="3">Wed</option><option value="4">Thu</option><option value="5">Fri</option>
+        <option value="6">Sat</option>
+      </select>
+      <button type="button" id="saveBlock">Save block</button>
+    </div>
+    <ul id="scheduleList"></ul>
+  </div>
+
+  <!-- Tasks -->
+  <h2>Tasks</h2>
+  <div class="box">
+    <div class="row">
+      <input type="text" id="taskTitle" placeholder="Task name" size="25">
+      <select id="taskSubject"></select>
+      <select id="taskType">
+        <option value="assignment">Assignment</option>
+        <option value="exam">Exam</option>
+        <option value="task">Task</option>
+      </select>
+      <input type="datetime-local" id="taskDeadline">
+      <button type="button" id="addTask">Add task</button>
+    </div>
+    <ul id="tasksList"></ul>
+  </div>
+
+  <!-- Settings -->
+  <h2>Settings</h2>
+  <div class="box">
+    <div class="settings-row">
+      <button type="button" id="resetBtn" class="del">Reset all data</button>
+    </div>
+  </div>
+
+  <script src="js/storage.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
