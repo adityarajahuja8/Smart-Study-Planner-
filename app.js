@@ -230,13 +230,7 @@ function init() {
 
   document.getElementById('saveBlock').onclick = saveBlock;
   document.getElementById('addTask').onclick = addTask;
-  document.getElementById('themeBtn').onclick = function() {
-    var s = getSettings();
-    s.theme = s.theme === 'dark' ? 'light' : 'dark';
-    setSettings(s);
-    applyTheme(s.theme);
-  };
-  document.getElementById('exportBtn').onclick = doExport;
+  // document.getElementById('exportBtn').onclick = doExport;
   document.getElementById('resetBtn').onclick = doReset;
 }
 
