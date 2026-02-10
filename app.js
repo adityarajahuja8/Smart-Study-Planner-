@@ -243,9 +243,11 @@ function init() {
 
   document.getElementById('saveBlock').onclick = saveBlock;
   document.getElementById('addTask').onclick = addTask;
+  // document.getElementById('exportBtn').onclick = doExport;
   document.getElementById('exportBtn').onclick = doExport;
   document.getElementById('resetBtn').onclick = doReset;
 }
 
 if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
 else init();
+
