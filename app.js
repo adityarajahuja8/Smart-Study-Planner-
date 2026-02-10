@@ -17,8 +17,18 @@ function timeMinutes(str) {
 }
 
 function formatDate(d) {
-  return d.toLocaleString(undefined, { dateStyle: 'short', timeStyle: 'short' });
+  const date = new Date(d);
+
+  const day = String(date.getDate()).padStart(2, '0');
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const year = String(date.getFullYear()).slice(-2);
+
+  const hours = String(date.getHours()).padStart(2, '0');
+  const minutes = String(date.getMinutes()).padStart(2, '0');
+
+  return `${day}-${month}-${year}  ${hours}:${minutes}`;
 }
+
 
 function getSubjects() { return getStorage('studyPlanner_subjects', []); }
 function setSubjects(arr) { setStorage('studyPlanner_subjects', arr); }
@@ -37,7 +47,7 @@ function setSettings(obj) {
 
 function subjectName(id) {
   var s = getSubjects().find(function(x) { return x.id === id; });
-  return s ? s.name : '?';
+  return s ? s.name : '';
 }
 
 // Fill subject dropdowns
@@ -126,7 +136,10 @@ function renderTasks() {
   var tasks = getTasks();
   list.innerHTML = tasks.map(function(t) {
     var cls = t.status === 'completed' ? ' class="done"' : '';
-    return '<li' + cls + '><span>' + escape(t.title) + '</span> <span class="muted">' + escape(subjectName(t.subjectId)) + ' ' + (t.deadline ? formatDate(t.deadline) : '') + '</span> ' +
+    return '<li' + cls + '><span>' + escape(t.title) + '</span> <span class="muted">' + (subjectName(t.subjectId)
+      ? escape(subjectName(t.subjectId)) + ' '
+      : ''
+    ) + ' ' + (t.deadline ? formatDate(t.deadline) : '') + '</span> ' +
       (t.status !== 'completed' ? '<button type="button" data-id="' + escape(t.id) + '">Complete</button> ' : '') +
       '<button type="button" class="del" data-id="' + escape(t.id) + '">Delete</button></li>';
   }).join('');
@@ -230,7 +243,7 @@ function init() {
 
   document.getElementById('saveBlock').onclick = saveBlock;
   document.getElementById('addTask').onclick = addTask;
-  // document.getElementById('exportBtn').onclick = doExport;
+  document.getElementById('exportBtn').onclick = doExport;
   document.getElementById('resetBtn').onclick = doReset;
 }
 
